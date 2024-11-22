@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import '../styles/globals.scss';
+
 export const metadata: Metadata = {
   title: 'Project A',
   description: '음악 반주 앱',
