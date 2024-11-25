@@ -1,4 +1,4 @@
-import { alignNormalizedPitchValueGroups, normalizePitchValueGroup } from '@/modules/pitch-value/pitchValue';
+import PitchValue from '@/modules/pitch-value';
 import { OneOctavePiano } from './OneOctavePiano';
 
 import style from './index.module.scss';
@@ -9,18 +9,11 @@ type PianoProps = {
   highlightKeys?: number[];
 };
 
-export function Piano({ octave = 1, pressedKeys = [], highlightKeys = [] }: PianoProps) {
-  if (octave <= 0) {
-    throw new Error('octave는 1이상이여야 합니다.');
-  }
-
-  const [normalizedPressed, normalizedHighlight] = alignNormalizedPitchValueGroups(
-    normalizePitchValueGroup(pressedKeys),
-    normalizePitchValueGroup(highlightKeys)
+export function Piano({ pressedKeys = [], highlightKeys = [] }: PianoProps) {
+  const [normalizedPressed, normalizedHighlight] = PitchValue.alignNormalizedPitchValues(
+    PitchValue.normalizePitchValues(pressedKeys),
+    PitchValue.normalizePitchValues(highlightKeys)
   );
-
-  console.log(normalizedPressed);
-  console.log(normalizedHighlight);
 
   const createPiano = (repeat: number) => {
     return Array.from({ length: repeat }, (_, i) => {
@@ -31,5 +24,12 @@ export function Piano({ octave = 1, pressedKeys = [], highlightKeys = [] }: Pian
     });
   };
 
-  return <div className={style.wrapper}>{createPiano(octave)}</div>;
+  let repeat: number;
+  if (normalizedPressed.values.length >= normalizedHighlight.values.length) {
+    repeat = normalizedPressed.values.length;
+  } else {
+    repeat = normalizedHighlight.values.length;
+  }
+
+  return <div className={style.wrapper}>{createPiano(repeat)}</div>;
 }
