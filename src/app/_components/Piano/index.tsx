@@ -4,7 +4,6 @@ import { OneOctavePiano } from './OneOctavePiano';
 import style from './index.module.scss';
 
 type PianoProps = {
-  octave?: number;
   pressedKeys?: number[];
   highlightKeys?: number[];
 };
@@ -16,6 +15,8 @@ export function Piano({ pressedKeys = [], highlightKeys = [] }: PianoProps) {
   );
 
   const createPiano = (repeat: number) => {
+    if (repeat <= 0) repeat = 1;
+
     return Array.from({ length: repeat }, (_, i) => {
       const pressedKeys = normalizedPressed.values[i];
       const highlightKeys = normalizedHighlight.values[i];
@@ -24,12 +25,7 @@ export function Piano({ pressedKeys = [], highlightKeys = [] }: PianoProps) {
     });
   };
 
-  let repeat: number;
-  if (normalizedPressed.values.length >= normalizedHighlight.values.length) {
-    repeat = normalizedPressed.values.length;
-  } else {
-    repeat = normalizedHighlight.values.length;
-  }
+  const repeat: number = Math.max(normalizedPressed.values.length, normalizedHighlight.values.length);
 
   return <div className={style.wrapper}>{createPiano(repeat)}</div>;
 }
