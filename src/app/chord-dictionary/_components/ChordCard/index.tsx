@@ -10,7 +10,14 @@ export default function ChordCard() {
         <h2 className={style.subtitle}>Major7th</h2>
       </section>
       <section className={style.body}>
-        <Piano pressedKeys={[9, 13, 16, 18]} highlightKeys={[9]} />
+        <Piano
+          keyInfos={[
+            { number: 9, state: 'highlight' },
+            { number: 13, state: 'pressed' },
+            { number: 16, state: 'pressed' },
+            { number: 18, state: 'pressed' },
+          ]}
+        />
       </section>
     </article>
   );
