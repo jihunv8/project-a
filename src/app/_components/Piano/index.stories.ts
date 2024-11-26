@@ -18,7 +18,11 @@ export const Primary: Story = {};
 
 export const WhenPressedChord: Story = {
   args: {
-    pressedKeys: [0, 4, 7],
-    highlightKeys: [0],
+    keyInfos: [
+      { value: 9, state: 'highlight' },
+      { value: 13, state: 'pressed' },
+      { value: 16, state: 'pressed' },
+      { value: 20, state: 'pressed' },
+    ],
   },
 };

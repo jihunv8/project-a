@@ -19,3 +19,7 @@ export function calcRmainder(dividend: number, divisor: number): number {
 
   return quotient;
 }
+
+export function calcDifference(num1: number, num2: number) {
+  return Math.abs(num1 - num2);
+}

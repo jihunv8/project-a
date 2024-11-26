@@ -5,7 +5,7 @@ type PianoBlackKeyProps = {
   state?: KeyState;
 };
 
-export function PianoBlackKey({ state }: PianoBlackKeyProps) {
+export function PianoBlackKey({ state = 'default' }: PianoBlackKeyProps) {
   let className = style.wrapper;
 
   switch (state) {

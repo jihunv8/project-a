@@ -18,7 +18,19 @@ export const Primary: Story = {};
 
 export const PressedCChord: Story = {
   args: {
-    pressedKeys: [0, 4, 7],
-    highlightKeys: [0],
+    keyInfos: [
+      {
+        value: 0,
+        state: 'highlight',
+      },
+      {
+        value: 4,
+        state: 'pressed',
+      },
+      {
+        value: 7,
+        state: 'pressed',
+      },
+    ],
   },
 };

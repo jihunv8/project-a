@@ -3,32 +3,24 @@ import { PianoWiteKey } from './PianoWiteKey';
 import style from './index.module.scss';
 
 import { KeyState } from '../src/types';
+import nnm, { NoteNumber } from '@/modules/nnm';
 
 type PianoProps = {
-  pressedKeys?: number[];
-  highlightKeys?: number[];
+  keyInfos?: {
+    value: NoteNumber;
+    state: KeyState;
+  }[];
 };
 
-export function OneOctavePiano({ pressedKeys = [], highlightKeys = [] }: PianoProps) {
-  function validateKeyIds(keyIds: number[]) {
-    keyIds.forEach((keyId) => {
-      if (keyId < 0 || keyId > 11) throw new Error('OneOctavePiano의 Key의 id는 0 ~ 11사이의 값이여야 합니다.');
-    });
-  }
+export function OneOctavePiano({ keyInfos = [] }: PianoProps) {
+  keyInfos.forEach(({ value }) => {
+    if (value < 0 || value > 11) throw new Error('OneOctavePiano의 KeyInfo의 value는 0 ~ 11사이의 값이여야 합니다.');
+  });
 
-  validateKeyIds(pressedKeys);
-  validateKeyIds(highlightKeys);
-
-  const keyStates: KeyState[] = new Array(11).fill('default');
-
-  function setKeyStates(state: KeyState, keyIds: number[]) {
-    keyIds.forEach((keyId) => {
-      keyStates[keyId] = state;
-    });
-  }
-
-  setKeyStates('pressed', pressedKeys);
-  setKeyStates('highlight', highlightKeys);
+  const keyStates: KeyState[] = new Array(nnm.OCTAVE).fill('default');
+  keyInfos.forEach((keyInfo) => {
+    keyStates[keyInfo.value] = keyInfo.state;
+  });
 
   return (
     <div className={style.wrapper}>

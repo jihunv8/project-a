@@ -5,7 +5,7 @@ type PianoWiteKeyProps = {
   state?: KeyState;
 };
 
-export function PianoWiteKey({ state }: PianoWiteKeyProps) {
+export function PianoWiteKey({ state = 'default' }: PianoWiteKeyProps) {
   let className = style.wrapper;
 
   switch (state) {

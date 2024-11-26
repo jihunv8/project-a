@@ -1,31 +1,40 @@
-import PitchValue from '@/modules/pitch-value';
-import { OneOctavePiano } from './OneOctavePiano';
-
+import PitchValue from '@/modules/nnm';
 import style from './index.module.scss';
 
+import { OneOctavePiano } from './OneOctavePiano';
+
+import type { KeyInfo } from './src/types';
+
 type PianoProps = {
-  pressedKeys?: number[];
-  highlightKeys?: number[];
+  keyInfos?: KeyInfo[];
 };
 
-export function Piano({ pressedKeys = [], highlightKeys = [] }: PianoProps) {
-  const [normalizedPressed, normalizedHighlight] = PitchValue.alignNormalizedPitchValues(
-    PitchValue.normalizePitchValues(pressedKeys),
-    PitchValue.normalizePitchValues(highlightKeys)
-  );
+export function Piano({ keyInfos = [] }: PianoProps) {
+  const createPiano = () => {
+    if (keyInfos.length === 0) return <OneOctavePiano />;
 
-  const createPiano = (repeat: number) => {
-    if (repeat <= 0) repeat = 1;
+    const sortedKeyInfos = keyInfos.toSorted((a, b) => a.value - b.value);
 
-    return Array.from({ length: repeat }, (_, i) => {
-      const pressedKeys = normalizedPressed.values[i];
-      const highlightKeys = normalizedHighlight.values[i];
+    const startOctave = PitchValue.calcOctave(sortedKeyInfos[0].value);
+    const endOctave = PitchValue.calcOctave(sortedKeyInfos[sortedKeyInfos.length - 1].value);
 
-      return <OneOctavePiano key={i} pressedKeys={pressedKeys} highlightKeys={highlightKeys} />;
+    const repeat = endOctave - startOctave + 1;
+
+    const pianoData: KeyInfo[][] = [];
+    for (let i = 0; i < repeat; i++) {
+      pianoData.push([]);
+    }
+    sortedKeyInfos.forEach((keyInfo) => {
+      const octave = PitchValue.calcOctave(keyInfo.value);
+      const index = octave - startOctave;
+
+      pianoData[index].push({ ...keyInfo, value: PitchValue.wrapToOctaveRange(keyInfo.value) });
+    });
+
+    return pianoData.map((data, i) => {
+      return <OneOctavePiano key={i} keyInfos={data} />;
     });
   };
 
-  const repeat: number = Math.max(normalizedPressed.values.length, normalizedHighlight.values.length);
-
-  return <div className={style.wrapper}>{createPiano(repeat)}</div>;
+  return <div className={style.wrapper}>{createPiano()}</div>;
 }
