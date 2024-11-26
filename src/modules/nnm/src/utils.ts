@@ -10,7 +10,7 @@ export function compareNoteNumber(a: NoteNumber, b: NoteNumber): NoteNumber {
   return a - b;
 }
 
-/** 한 옥타브범위(0~11)로 제한된 노트번호를 반환합니다. */
+/** 0 ~ 11로 제한된 노트번호를 반환합니다. */
 export function wrapToOctaveRange(noteNumber: NoteNumber): NoteNumber {
   const remainder = MathPlus.calcRmainder(noteNumber, OCTAVE);
   if (noteNumber >= 0) {
@@ -18,6 +18,14 @@ export function wrapToOctaveRange(noteNumber: NoteNumber): NoteNumber {
   } else {
     return (OCTAVE + remainder) % OCTAVE;
   }
+}
+
+/** 한 옥타브의 최소, 최대 노트번호를 반환합니다. */
+export function calcOctaveRange(octave: number): [number, number] {
+  const min = OCTAVE * (octave + 1);
+  const max = min + OCTAVE - 1;
+
+  return [min, max];
 }
 
 /** 노트번호의 옥타브를 구합니다.

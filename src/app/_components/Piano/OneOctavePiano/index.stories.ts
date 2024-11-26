@@ -14,21 +14,26 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  args: {
+    octave: 4,
+  },
+};
 
 export const PressedCChord: Story = {
   args: {
+    octave: 4,
     keyInfos: [
       {
-        value: 0,
+        number: 60,
         state: 'highlight',
       },
       {
-        value: 4,
+        number: 64,
         state: 'pressed',
       },
       {
-        value: 7,
+        number: 67,
         state: 'pressed',
       },
     ],

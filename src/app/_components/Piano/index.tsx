@@ -1,4 +1,4 @@
-import PitchValue from '@/modules/nnm';
+import nnm from '@/modules/nnm';
 import style from './index.module.scss';
 
 import { OneOctavePiano } from './OneOctavePiano';
@@ -11,12 +11,12 @@ type PianoProps = {
 
 export function Piano({ keyInfos = [] }: PianoProps) {
   const createPiano = () => {
-    if (keyInfos.length === 0) return <OneOctavePiano />;
+    if (keyInfos.length === 0) return <OneOctavePiano octave={4} />;
 
-    const sortedKeyInfos = keyInfos.toSorted((a, b) => a.value - b.value);
+    const sortedKeyInfos = keyInfos.toSorted((a, b) => a.number - b.number);
 
-    const startOctave = PitchValue.calcOctave(sortedKeyInfos[0].value);
-    const endOctave = PitchValue.calcOctave(sortedKeyInfos[sortedKeyInfos.length - 1].value);
+    const startOctave = nnm.calcOctave(sortedKeyInfos[0].number);
+    const endOctave = nnm.calcOctave(sortedKeyInfos[sortedKeyInfos.length - 1].number);
 
     const repeat = endOctave - startOctave + 1;
 
@@ -24,15 +24,16 @@ export function Piano({ keyInfos = [] }: PianoProps) {
     for (let i = 0; i < repeat; i++) {
       pianoData.push([]);
     }
+
     sortedKeyInfos.forEach((keyInfo) => {
-      const octave = PitchValue.calcOctave(keyInfo.value);
+      const octave = nnm.calcOctave(keyInfo.number);
       const index = octave - startOctave;
 
-      pianoData[index].push({ ...keyInfo, value: PitchValue.wrapToOctaveRange(keyInfo.value) });
+      pianoData[index].push(keyInfo);
     });
 
     return pianoData.map((data, i) => {
-      return <OneOctavePiano key={i} keyInfos={data} />;
+      return <OneOctavePiano key={i} octave={startOctave + i} keyInfos={data} />;
     });
   };
 

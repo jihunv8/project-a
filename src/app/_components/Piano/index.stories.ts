@@ -19,10 +19,10 @@ export const Primary: Story = {};
 export const WhenPressedChord: Story = {
   args: {
     keyInfos: [
-      { value: 9, state: 'highlight' },
-      { value: 13, state: 'pressed' },
-      { value: 16, state: 'pressed' },
-      { value: 20, state: 'pressed' },
+      { number: 9, state: 'highlight' },
+      { number: 13, state: 'pressed' },
+      { number: 16, state: 'pressed' },
+      { number: 20, state: 'pressed' },
     ],
   },
 };

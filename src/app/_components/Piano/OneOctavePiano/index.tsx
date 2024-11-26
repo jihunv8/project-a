@@ -2,24 +2,21 @@ import { PianoBlackKey } from './BlackKey';
 import { PianoWiteKey } from './PianoWiteKey';
 import style from './index.module.scss';
 
-import { KeyState } from '../src/types';
-import nnm, { NoteNumber } from '@/modules/nnm';
+import { KeyInfo, KeyState } from '../src/types';
+import nnm from '@/modules/nnm';
 
 type PianoProps = {
-  keyInfos?: {
-    value: NoteNumber;
-    state: KeyState;
-  }[];
+  octave: number;
+  keyInfos?: KeyInfo[];
 };
 
-export function OneOctavePiano({ keyInfos = [] }: PianoProps) {
-  keyInfos.forEach(({ value }) => {
-    if (value < 0 || value > 11) throw new Error('OneOctavePiano의 KeyInfo의 value는 0 ~ 11사이의 값이여야 합니다.');
-  });
+export function OneOctavePiano({ octave, keyInfos = [] }: PianoProps) {
+  keyInfos.forEach(({ number }) => nnm.validateNoteNumberForOctave(number, octave));
 
   const keyStates: KeyState[] = new Array(nnm.OCTAVE).fill('default');
-  keyInfos.forEach((keyInfo) => {
-    keyStates[keyInfo.value] = keyInfo.state;
+  keyInfos.forEach(({ number, state }) => {
+    const index = nnm.wrapToOctaveRange(number);
+    keyStates[index] = state;
   });
 
   return (
