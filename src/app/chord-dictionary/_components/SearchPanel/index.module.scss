@@ -1,0 +1,25 @@
+@use '../../../../styles/shadows';
+@use '../../../../styles/numbers';
+@use '../../../../styles/fonts';
+
+.wrapper {
+  width: 100%;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  border-radius: numbers.$radius-common-large;
+
+  @include shadows.common-shadow;
+
+  .serachModeSelector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .title {
+      @include fonts.primary-14-400;
+    }
+  }
+}

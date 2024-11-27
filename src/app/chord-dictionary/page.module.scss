@@ -1,0 +1,19 @@
+.wrapper {
+  .contentsArea {
+    width: 1260px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+
+    .chordCardList {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+
+      .row {
+        display: flex;
+        gap: 20px;
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@use '../../../../../styles/colors';
+@use '../../../../../styles/fonts';
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  padding: 0 20px;
+  background-color: colors.$white;
+  border: 1px solid colors.$gray-scale-200;
+  border-radius: 100px;
+  overflow: hidden;
+
+  > input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    @include fonts.primary-14-400;
+
+    &::placeholder {
+      color: colors.$font-secondary;
+    }
+  }
+
+  > button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    border: none;
+  }
+}

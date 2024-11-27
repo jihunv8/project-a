@@ -3,6 +3,17 @@
   line-height: 1.5;
 }
 
+@mixin primary-14-400 {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@mixin primary-14-500 {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
 @mixin primary-12-400 {
   font-size: 0.75rem;
   line-height: 1.5;

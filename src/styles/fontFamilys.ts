@@ -7,6 +7,7 @@ const notoSans = Noto_Sans({
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
+  weight: ['400', '500', '700'],
 });
 
 export const fontFamilys = {
