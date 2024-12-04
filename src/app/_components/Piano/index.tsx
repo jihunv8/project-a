@@ -1,41 +1,34 @@
 import nnm from '@/modules/nnm';
 import style from './index.module.scss';
 
-import { OneOctavePiano } from './OneOctavePiano';
+import PianoUnit from './PianoUnit';
 
-import type { KeyInfo } from './src/types';
+import PianoDataModule, { PianoData, PianoKeyData } from './src/piano-data';
 
 type PianoProps = {
-  keyInfos?: KeyInfo[];
+  keys?: PianoKeyData[];
+  options?: {
+    startOctave?: number;
+    totalOctave?: number;
+    minTotalOctave?: number;
+  };
 };
 
-export function Piano({ keyInfos = [] }: PianoProps) {
-  const createPiano = () => {
-    if (keyInfos.length === 0) return <OneOctavePiano octave={4} />;
+export function Piano({ keys = [], options: { startOctave, totalOctave, minTotalOctave } = {} }: PianoProps) {
+  if (keys.length === 0) {
+    const defaultStartOctave = startOctave ?? 4;
+    const defaultStartNumber = nnm.getInOctave(defaultStartOctave, 0);
+    keys = [PianoDataModule.key.create(defaultStartNumber)];
+  }
 
-    const sortedKeyInfos = keyInfos.toSorted((a, b) => a.number - b.number);
+  const pianoData: PianoData = PianoDataModule.create(keys, { startOctave, totalOctave, minTotalOctave });
 
-    const startOctave = nnm.calcOctave(sortedKeyInfos[0].number);
-    const endOctave = nnm.calcOctave(sortedKeyInfos[sortedKeyInfos.length - 1].number);
-
-    const repeat = endOctave - startOctave + 1;
-
-    const pianoData: KeyInfo[][] = [];
-    for (let i = 0; i < repeat; i++) {
-      pianoData.push([]);
-    }
-
-    sortedKeyInfos.forEach((keyInfo) => {
-      const octave = nnm.calcOctave(keyInfo.number);
-      const index = octave - startOctave;
-
-      pianoData[index].push(keyInfo);
-    });
-
-    return pianoData.map((data, i) => {
-      return <OneOctavePiano key={i} octave={startOctave + i} keyInfos={data} />;
-    });
-  };
-
-  return <div className={style.wrapper}>{createPiano()}</div>;
+  return (
+    <div className={style.wrapper}>
+      {pianoData.units.map((unit) => {
+        const { octave, keys } = unit;
+        return <PianoUnit octave={octave} keys={keys}></PianoUnit>;
+      })}
+    </div>
+  );
 }

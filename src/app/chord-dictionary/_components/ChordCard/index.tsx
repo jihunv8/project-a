@@ -11,12 +11,13 @@ export default function ChordCard() {
       </section>
       <section className={style.body}>
         <Piano
-          keyInfos={[
+          keys={[
             { number: 9, state: 'highlight' },
             { number: 13, state: 'pressed' },
             { number: 16, state: 'pressed' },
             { number: 18, state: 'pressed' },
           ]}
+          options={{ minTotalOctave: 2 }}
         />
       </section>
     </article>

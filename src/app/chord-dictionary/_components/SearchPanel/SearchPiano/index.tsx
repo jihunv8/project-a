@@ -9,13 +9,7 @@ const namer = createSimpleClassNamer(style);
 export default function SearchPiano() {
   return (
     <section className={namer('wrapper')}>
-      <Piano
-        keyInfos={[
-          { number: 60, state: 'default' },
-          { number: 72, state: 'default' },
-          { number: 84, state: 'default' },
-        ]}
-      />
+      <Piano options={{ startOctave: 3, totalOctave: 4 }} />
     </section>
   );
 }

@@ -18,11 +18,39 @@ export const Primary: Story = {};
 
 export const WhenPressedChord: Story = {
   args: {
-    keyInfos: [
-      { number: 9, state: 'highlight' },
-      { number: 13, state: 'pressed' },
-      { number: 16, state: 'pressed' },
-      { number: 20, state: 'pressed' },
+    keys: [
+      { number: 69, state: 'highlight' },
+      { number: 73, state: 'pressed' },
+      { number: 76, state: 'pressed' },
+      { number: 80, state: 'pressed' },
     ],
+  },
+};
+
+export const SettedStartOctave: Story = {
+  args: {
+    keys: [
+      { number: 69, state: 'highlight' },
+      { number: 73, state: 'pressed' },
+      { number: 76, state: 'pressed' },
+      { number: 80, state: 'pressed' },
+    ],
+    options: {
+      startOctave: 2,
+    },
+  },
+};
+
+export const SettedTotalOctave: Story = {
+  args: {
+    keys: [
+      { number: 69, state: 'highlight' },
+      { number: 73, state: 'pressed' },
+      { number: 76, state: 'pressed' },
+      { number: 80, state: 'pressed' },
+    ],
+    options: {
+      totalOctave: 4,
+    },
   },
 };

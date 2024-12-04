@@ -1,5 +1,5 @@
 import MathPlus from '@/modules/math-plus';
-import { NoteNumber } from './types';
+import { NoteNumber, OctaveRange } from './types';
 import { OCTAVE } from './constants';
 
 export function sortNoteNumbers(values: NoteNumber[]): NoteNumber[] {
@@ -11,21 +11,43 @@ export function compareNoteNumber(a: NoteNumber, b: NoteNumber): NoteNumber {
 }
 
 /** 0 ~ 11로 제한된 노트번호를 반환합니다. */
-export function wrapToOctaveRange(noteNumber: NoteNumber): NoteNumber {
+export function wrapToOctaveRange(noteNumber: NoteNumber): OctaveRange {
   const remainder = MathPlus.calcRmainder(noteNumber, OCTAVE);
-  if (noteNumber >= 0) {
-    return remainder;
-  } else {
-    return (OCTAVE + remainder) % OCTAVE;
-  }
+
+  const wrappedNumber = noteNumber >= 0 ? remainder : (OCTAVE + remainder) % OCTAVE;
+
+  return castOctaveRange(wrappedNumber);
 }
 
-/** 한 옥타브의 최소, 최대 노트번호를 반환합니다. */
-export function calcOctaveRange(octave: number): [number, number] {
-  const min = OCTAVE * (octave + 1);
-  const max = min + OCTAVE - 1;
+/** 0 ~ 11사이의 수의 타입을 OctaveRange로 변환합니다.*/
+export function castOctaveRange(number: number): OctaveRange {
+  if (isInOctaveRange(number)) {
+    return number;
+  }
 
-  return [min, max];
+  throw new Error(`number ${number}은(는) OctaveRange의 수가 아닙니다.`);
+}
+
+/** 인수로 받은 수가 OctaveRange에 포함되는지 확인합니다.*/
+export function isInOctaveRange(number: number): number is OctaveRange {
+  return number >= 0 && number <= 11; // TwelveRange의 조건
+}
+
+/** 특정 옥타브와 특정 번호로 노트번호를 구합니다.*/
+export function getInOctave(octave: number, numberInOctaveRange: OctaveRange) {
+  return getMinInOctave(octave) + numberInOctaveRange;
+}
+
+/** 특정 옥타브의 최대 노트번호를 구합니다. */
+export function getMaxInOctave(octave: number): NoteNumber {
+  const min = getMinInOctave(octave);
+  const max = min + OCTAVE - 1;
+  return max;
+}
+/** 특정 옥타브의 최소 노트번호를 구합니다. */
+export function getMinInOctave(octave: number): NoteNumber {
+  const min = OCTAVE * (octave + 1);
+  return min;
 }
 
 /** 노트번호의 옥타브를 구합니다.
@@ -33,7 +55,7 @@ export function calcOctaveRange(octave: number): [number, number] {
  * C4의 번호 60번의 옥타브는 4입니다.
  * Bb3의 번호 59번의 옥타브는 3입니다.
  */
-export function calcOctave(noteNumber: NoteNumber) {
+export function getOctave(noteNumber: NoteNumber): number {
   if (noteNumber >= 0) {
     const quotient = MathPlus.calcQuotient(noteNumber, OCTAVE);
     return quotient - 1;

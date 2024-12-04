@@ -6,9 +6,9 @@ const namer = createSimpleClassNamer(style);
 type ButtonProps = {
   name: string;
   active?: boolean;
-  onChangeMode: () => void;
+  onChangeMode?: () => void;
 };
-export default function Button({ name, active = false, onChangeMode }: ButtonProps) {
+export default function Button({ name, active = false, onChangeMode = () => {} }: ButtonProps) {
   return (
     <button className={namer('wrapper', [active, 'active'])} onClick={onChangeMode}>
       {name}

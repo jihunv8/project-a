@@ -1,9 +1,32 @@
-import { calcOctave, wrapToOctaveRange } from './utils';
+import { NoteNumber } from '@/modules/nnm/external';
+import { castOctaveRange, getInOctave, getOctave, isInOctaveRange, wrapToOctaveRange } from './utils';
+// octave:[fromNoteNumber, toNoteNumber]
+const octaveRangeTable: { [octave: string]: [NoteNumber, NoteNumber] } = {
+  '-3': [-24, -11],
+  '-2': [-12, -1],
+  '-1': [0, 11],
+  '0': [12, 23],
+  '1': [24, 35],
+  '2': [36, 47],
+  '3': [48, 59],
+  '4': [60, 71],
+  '5': [72, 83],
+  '6': [84, 95],
+  '7': [96, 107],
+  '8': [108, 119],
+};
 
-///   wrapToOctaveRange   ///
+const minOctave = Object.keys(octaveRangeTable).reduce((min, key) => (Number(key) < min ? Number(key) : min), Infinity);
+const maxOctave = Object.keys(octaveRangeTable).reduce(
+  (max, key) => (Number(key) > max ? Number(key) : max),
+  -Infinity
+);
+const minNoteNumber = octaveRangeTable[minOctave][0];
+const maxNoteNumber = octaveRangeTable[maxOctave][1];
+
 describe('wrapToOctaveRange', () => {
   test('반환된 값이 0 ~ 11사이의 값이여야 합니다.', () => {
-    for (let i = -100; i <= 100; i++) {
+    for (let i = -24; i < 120; i++) {
       const result = wrapToOctaveRange(i);
       expect(result).toBeGreaterThanOrEqual(0);
       expect(result).toBeLessThanOrEqual(11);
@@ -34,39 +57,26 @@ describe('wrapToOctaveRange', () => {
   });
 });
 
-///   calcOctave   ///
-describe('calcOctave', () => {
+describe('getInOctave', () => {
+  test('올바르른 값을 반환해야 합니다.', () => {
+    for (let octave = minOctave; octave <= maxOctave; octave++) {
+      for (let j = 0; j < 12; j++) {
+        const numInOctaveRange = castOctaveRange(j);
+        const noteNumber = getInOctave(octave, numInOctaveRange);
+        expect(noteNumber).toBe(octaveRangeTable[octave][0] + numInOctaveRange);
+      }
+    }
+  });
+});
+
+describe('getOctave', () => {
   test('올바른 값을 반환해야합니다.', () => {
-    expect(calcOctave(60)).toBe(4);
-    expect(calcOctave(61)).toBe(4);
-    expect(calcOctave(70)).toBe(4);
-    expect(calcOctave(71)).toBe(4);
+    for (let noteNumber = minNoteNumber; noteNumber <= maxNoteNumber; noteNumber++) {
+      const octave = getOctave(noteNumber);
+      const [min, max] = octaveRangeTable[octave];
 
-    expect(calcOctave(72)).toBe(5);
-    expect(calcOctave(73)).toBe(5);
-    expect(calcOctave(82)).toBe(5);
-    expect(calcOctave(83)).toBe(5);
-
-    expect(calcOctave(84)).toBe(6);
-    expect(calcOctave(95)).toBe(6);
-
-    expect(calcOctave(59)).toBe(3);
-    expect(calcOctave(58)).toBe(3);
-    expect(calcOctave(49)).toBe(3);
-    expect(calcOctave(48)).toBe(3);
-
-    expect(calcOctave(47)).toBe(2);
-    expect(calcOctave(36)).toBe(2);
-
-    expect(calcOctave(23)).toBe(0);
-    expect(calcOctave(12)).toBe(0);
-    expect(calcOctave(11)).toBe(-1);
-    expect(calcOctave(0)).toBe(-1);
-
-    expect(calcOctave(-1)).toBe(-2);
-    expect(calcOctave(-12)).toBe(-2);
-
-    expect(calcOctave(-13)).toBe(-3);
-    expect(calcOctave(-24)).toBe(-3);
+      expect(noteNumber).toBeGreaterThanOrEqual(min);
+      expect(noteNumber).toBeLessThanOrEqual(max);
+    }
   });
 });
