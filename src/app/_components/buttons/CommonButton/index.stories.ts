@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Button from './index';
+import CommonButton from './index';
 
 const meta = {
-  title: 'Chord-Dictionary/Components/SearchPanel/Button',
-  component: Button,
+  component: CommonButton,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof CommonButton>;
 
 export default meta;
 
@@ -20,9 +19,17 @@ export const Primary: Story = {
   },
 };
 
-export const Active: Story = {
+export const Toggled: Story = {
   args: {
     name: '버튼',
-    active: true,
+    toggled: true,
+  },
+};
+
+export const ToggledColorPrimary: Story = {
+  args: {
+    name: '버튼',
+    toggled: true,
+    color: 'primary',
   },
 };

@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Piano } from './index';
 
 const meta = {
-  title: 'Components/Piano/Piano',
   component: Piano,
   parameters: {
     layout: 'centered',

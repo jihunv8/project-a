@@ -1,0 +1,31 @@
+@use '../../../../../../styles/colors';
+@use '../../../../../../styles/fonts';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .root-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .divider {
+    width: 1px;
+    height: 75px;
+    background-color: colors.$gray-scale-300;
+  }
+
+  .accidental-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

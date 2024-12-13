@@ -1,13 +1,12 @@
 import { ChordQualityInfo } from '../quality-dictionary/src/types';
 import { chordQualityDictionary } from '../quality-dictionary';
 import { ChordInfo } from './types';
-
-type Root = `${'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'}${'#' | 'b' | ''}`;
+import { RootNote } from '@/modules/mdm';
 
 class ChordDictionary {
   private qualityDictionary = chordQualityDictionary;
 
-  search(root: Root, keyword: string): ChordInfo[] {
+  search(root: RootNote, keyword: string): ChordInfo[] {
     const qualities = this.qualityDictionary.search(keyword);
 
     const chords = qualities.map((quality) => {
@@ -24,7 +23,7 @@ function createDictionary() {
 
 export const dictionary = createDictionary();
 
-function createChord(root: Root, quality: ChordQualityInfo): ChordInfo {
+function createChord(root: RootNote, quality: ChordQualityInfo): ChordInfo {
   const { name, synonyms, symbols, intervals } = quality;
   const chordName = `${root} ${name}`;
   const chordSynonym = synonyms.map((synonym) => `${root} ${synonym}`);
@@ -40,7 +39,7 @@ function createChord(root: Root, quality: ChordQualityInfo): ChordInfo {
   };
 }
 
-function getNoteNumbers(root: Root, intervals: string[]) {
+function getNoteNumbers(root: RootNote, intervals: string[]) {
   const cMajorScale = [0, 2, 4, 5, 7, 9, 11];
 
   const numbers = intervals.map((interval) => {
@@ -54,7 +53,7 @@ function getNoteNumbers(root: Root, intervals: string[]) {
   return numbers;
 }
 
-function getRootValue(root: Root) {
+function getRootValue(root: RootNote) {
   switch (root) {
     case 'B#':
     case 'C':

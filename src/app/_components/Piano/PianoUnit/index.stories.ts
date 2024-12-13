@@ -4,7 +4,6 @@ import PianoUnit from './index';
 import PianoDataModule from '@/app/_components/Piano/src/piano-data';
 
 const meta = {
-  title: 'Components/Piano/PianoUnit',
   component: PianoUnit,
   parameters: {
     layout: 'centered',

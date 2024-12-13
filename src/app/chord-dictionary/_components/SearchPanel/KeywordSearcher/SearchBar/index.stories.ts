@@ -1,10 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Page from './page';
+import SearchBar from './index';
 
 const meta = {
-  component: Page,
-} satisfies Meta<typeof Page>;
+  component: SearchBar,
+  parameters: {
+    layout: 'centered',
+  },
+} satisfies Meta<typeof SearchBar>;
 
 export default meta;
 

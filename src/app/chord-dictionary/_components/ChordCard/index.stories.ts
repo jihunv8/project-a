@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ChordCard from './index';
 
 const meta = {
-  title: 'Chord-Dictionary/Components/ChordCard',
   component: ChordCard,
   parameters: {
     layout: 'centered',
@@ -14,4 +13,10 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  args: {
+    title: 'AM7',
+    subtitle: 'maj7, ma7',
+    chordNumbers: [9, 13, 16, 18],
+  },
+};

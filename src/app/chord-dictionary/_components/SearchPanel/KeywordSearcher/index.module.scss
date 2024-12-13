@@ -1,0 +1,8 @@
+@use '../../../../../styles/colors';
+@use '../../../../../styles/fonts';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

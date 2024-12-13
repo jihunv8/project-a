@@ -1,10 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Page from './page';
+import RootSelector from './index';
 
 const meta = {
-  component: Page,
-} satisfies Meta<typeof Page>;
+  component: RootSelector,
+  parameters: {
+    layout: 'centered',
+  },
+} satisfies Meta<typeof RootSelector>;
 
 export default meta;
 
