@@ -2,6 +2,7 @@ import { ChordQualityInfo } from '../quality-dictionary/src/types';
 import { chordQualityDictionary } from '../quality-dictionary';
 import { ChordInfo } from './types';
 import { RootNote } from '@/modules/mdm';
+import MathPlus from '@/modules/math-plus';
 
 class ChordDictionary {
   private qualityDictionary = chordQualityDictionary;
@@ -30,6 +31,8 @@ function createChord(root: RootNote, quality: ChordQualityInfo): ChordInfo {
   const chordSymbols = symbols.map((symbol) => `${root}${symbol}`);
   const chordNumbers = getNoteNumbers(root, intervals);
 
+  console.log(chordName, chordNumbers, intervals);
+
   return {
     name: chordName,
     synonym: chordSynonym,
@@ -40,14 +43,18 @@ function createChord(root: RootNote, quality: ChordQualityInfo): ChordInfo {
 }
 
 function getNoteNumbers(root: RootNote, intervals: string[]) {
+  const NUM_OF_NOTE_IN_SCALE = 7;
   const cMajorScale = [0, 2, 4, 5, 7, 9, 11];
 
   const numbers = intervals.map((interval) => {
     const [base, accitantal] = parseInterval(interval);
-    const noteNumber = cMajorScale[base - 1] + accitantal;
+    const index = (base - 1) % NUM_OF_NOTE_IN_SCALE;
+    const octave = MathPlus.calcQuotient(base - 1, NUM_OF_NOTE_IN_SCALE);
+    const noteNumber = cMajorScale[index] + accitantal;
     const rootValue = getRootValue(root);
+    const incresement = octave * 12;
 
-    return noteNumber + rootValue;
+    return noteNumber + rootValue + incresement;
   });
 
   return numbers;
@@ -92,15 +99,18 @@ function getRootValue(root: RootNote) {
 }
 
 function parseInterval(interval: string): [number, number] {
-  const splited = interval.split('');
-  const base = Number(splited[splited.length - 1]);
+  const match = interval.match(/^(([-]+)|([+]+))?([1-9]\d*)$/);
 
-  if (splited.length === 1) {
-    return [base, 0];
+  if (match === null) {
+    throw new Error(`interval${interval}은 올바른 형식이 아닙니다.`);
   }
 
-  if (splited[0] === '+') return [base, splited.length - 1];
-  if (splited[0] === '-') return [base, (splited.length - 1) * -1];
+  const signs = match[1] || ''; // 기호 부분, 없으면 빈 문자열
+  const number = Number(match[4]); // 숫자 부분
 
-  throw new Error(`${interval}은 올바른 형식이 아님`);
+  if (signs.length === 0 || signs[0] === '+') {
+    return [number, signs.length];
+  }
+
+  return [number, signs.length * -1];
 }
