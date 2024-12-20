@@ -14,7 +14,7 @@ const namer = createSimpleClassNamer(style);
 
 export default function Page() {
   const [rootNote, setRootNote] = useState<RootNote>('C');
-  const [keyword, setKeyword] = useState('m');
+  const [keyword, setKeyword] = useState('');
   const chords = dictionary.search(rootNote, keyword);
 
   const list = chords.reduce<ChordInfo[][]>((prev, chord, i) => {

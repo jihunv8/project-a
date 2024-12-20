@@ -123,7 +123,7 @@ export const chordQualityInfoTable: ChordQualityInfoTable = {
     id: '1013',
     name: 'minor seventh flat five',
     synonyms: ['half diminished'],
-    symbols: ['m7(b5)', 'm7b5', '-7(b5)', 'mi7(b5', 'min7(b5)'],
+    symbols: ['m7(b5)', 'm7b5', '-7(b5)', 'mi7(b5)', 'min7(b5)'],
     tags: [...TAG_GROUP.seventh, ...TAG_GROUP.flat5],
     intervals: ['1', '-3', '-5', '-7'],
   },

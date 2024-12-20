@@ -8,13 +8,17 @@ class ChordDictionary {
   private qualityDictionary = chordQualityDictionary;
 
   search(root: RootNote, keyword: string): ChordInfo[] {
-    const qualities = this.qualityDictionary.search(keyword);
+    const qualities = this.qualityDictionary.search(keyword).items;
 
     const chords = qualities.map((quality) => {
       return createChord(root, quality);
     });
 
     return chords;
+  }
+
+  suggestKeywords(keyword: string) {
+    return this.qualityDictionary.suggestKeywords(keyword);
   }
 }
 
