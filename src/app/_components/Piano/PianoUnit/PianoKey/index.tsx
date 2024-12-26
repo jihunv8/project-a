@@ -12,18 +12,6 @@ type PianoBlackKeyProps = {
   state?: PianoKeyState;
 };
 
-export default function PianoKey({ number, type = 'white', state = 'default' }: PianoBlackKeyProps) {
-  let className = style.wrapper;
-
-  switch (state) {
-    case 'highlight':
-      className += ' ' + style.highlight;
-      break;
-
-    case 'pressed':
-      className += ' ' + style.pressed;
-      break;
-  }
-
+export default function PianoKey({ type = 'white', state = 'default' }: PianoBlackKeyProps) {
   return <div className={namer('wrapper', type, state)}></div>;
 }

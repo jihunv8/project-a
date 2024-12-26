@@ -1,35 +1,83 @@
 @use '../../../../../../styles/colors';
 @use '../../../../../../styles/fonts';
+@use '../../../../../../styles/numbers';
 
 .wrapper {
-  display: flex;
   width: 100%;
-  padding: 0 20px;
-  background-color: colors.$white;
-  border: 1px solid colors.$gray-scale-200;
-  border-radius: 100px;
-  overflow: hidden;
 
-  > input {
+  position: relative;
+
+  .input-area {
+    display: flex;
+    width: 100%;
+
     padding: 10px;
-    border: none;
-    outline: none;
-    flex-grow: 1;
-    @include fonts.primary-14-400;
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-scale-200;
+    border-radius: numbers.$radius-common-large;
 
-    &::placeholder {
-      color: colors.$font-secondary;
+    &.suggested {
+      border-bottom: none;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .search-icon {
+      width: 44px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    > input {
+      border: none;
+      outline: none;
+      flex-grow: 1;
+      @include fonts.primary-14-400;
+
+      &::placeholder {
+        color: colors.$font-secondary;
+      }
     }
   }
 
-  > button {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .suggested-keywords-area {
+    width: 100%;
+    padding: 0 10px 10px;
 
-    background-color: transparent;
-    border: none;
+    position: absolute;
+    left: 0px;
+    top: 100%;
+
+    background-color: colors.$white;
+
+    border: 1px solid colors.$gray-scale-200;
+    border-top: none;
+    border-bottom-left-radius: numbers.$radius-common-large;
+    border-bottom-right-radius: numbers.$radius-common-large;
+    z-index: 1;
+
+    .suggested-keywords-list {
+      display: flex;
+      flex-direction: column;
+
+      .suggested-keyword {
+        > button {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          padding: 10px 30px 10px 44px;
+          background-color: transparent;
+          border: none;
+          border-radius: numbers.$radius-common-large;
+          @include fonts.primary-14-400;
+
+          &:hover {
+            background-color: colors.$gray-scale-200;
+          }
+        }
+      }
+    }
   }
 }

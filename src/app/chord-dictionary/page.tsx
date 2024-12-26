@@ -1,11 +1,12 @@
+'use client';
+
 import style from './page.module.scss';
 import { createSimpleClassNamer } from '@/modules/class-namer';
 
 import ChordCard from './_components/ChordCard';
 import SearchPanel from './_components/SearchPanel';
-import { dictionary } from '@/modules/chord/dictionary/src/utils';
+import Chord, { ChordInfo } from '@/modules/chord';
 import { produce } from 'immer';
-import { ChordInfo } from '@/modules/chord/dictionary/src/types';
 import MathPlus from '@/modules/math-plus';
 import { useState } from 'react';
 import { RootNote } from '@/modules/mdm';
@@ -15,7 +16,8 @@ const namer = createSimpleClassNamer(style);
 export default function Page() {
   const [rootNote, setRootNote] = useState<RootNote>('C');
   const [keyword, setKeyword] = useState('');
-  const chords = dictionary.search(rootNote, keyword);
+  const chords = Chord.dictionary.search(rootNote, keyword);
+  const suggestedKeywords = keyword.length === 0 ? [] : Chord.dictionary.suggestKeywords(keyword);
 
   const list = chords.reduce<ChordInfo[][]>((prev, chord, i) => {
     const rowIndex = MathPlus.calcQuotient(i, 4);
@@ -34,6 +36,10 @@ export default function Page() {
     setRootNote(rootNote);
   };
 
+  const onSelectSuggestedKeyword = (suggestedKeyword: string) => {
+    setKeyword(suggestedKeyword);
+  };
+
   return (
     <section className={namer('wrapper')}>
       <section className={namer('contentsArea')}>
@@ -42,6 +48,8 @@ export default function Page() {
           onTypeKeyword={handleTypeKeyword}
           rootNote={rootNote}
           onSelectRootNote={handleSelectRootNote}
+          suggestedKeywords={suggestedKeywords}
+          onSelectSuggestedKeyword={onSelectSuggestedKeyword}
         />
         <ul className={namer('chordCardList')}>
           {list.map((chords, i) => {

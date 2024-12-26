@@ -1,5 +1,5 @@
 import { NoteNumber } from '@/modules/nnm/external';
-import { castOctaveRange, getInOctave, getOctave, isInOctaveRange, wrapToOctaveRange } from './utils';
+import { castOctaveRange, getInOctave, getOctave, wrapToOctaveRange } from './utils';
 // octave:[fromNoteNumber, toNoteNumber]
 const octaveRangeTable: { [octave: string]: [NoteNumber, NoteNumber] } = {
   '-3': [-24, -11],

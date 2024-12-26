@@ -27,7 +27,7 @@ export function Piano({ keys = [], options: { startOctave, totalOctave, minTotal
     <div className={style.wrapper}>
       {pianoData.units.map((unit) => {
         const { octave, keys } = unit;
-        return <PianoUnit octave={octave} keys={keys}></PianoUnit>;
+        return <PianoUnit key={octave} octave={octave} keys={keys}></PianoUnit>;
       })}
     </div>
   );

@@ -12,6 +12,8 @@ type KeywordSearcherProps = {
   onSelectRootNote?: (rootNote: RootNote) => void;
   keyword?: string;
   onTypeKeyword?: (keyword: string) => void;
+  suggestedKeywords?: string[];
+  onSelectSuggestedKeyword?: (suggestedKeyword: string) => void;
 };
 
 export default function KeywordSearcher({
@@ -19,11 +21,18 @@ export default function KeywordSearcher({
   onSelectRootNote = () => {},
   keyword = '',
   onTypeKeyword = () => {},
+  suggestedKeywords = [],
+  onSelectSuggestedKeyword = () => {},
 }: KeywordSearcherProps) {
   return (
     <section className={namer('wrapper')}>
       <RootSelector rootNote={rootNote} onSelect={onSelectRootNote} />
-      <SearchBar keyword={keyword} onTypeKeyword={onTypeKeyword} />
+      <SearchBar
+        keyword={keyword}
+        onTypeKeyword={onTypeKeyword}
+        suggestedKeywords={suggestedKeywords}
+        onSelectSuggestedKeyword={onSelectSuggestedKeyword}
+      />
     </section>
   );
 }

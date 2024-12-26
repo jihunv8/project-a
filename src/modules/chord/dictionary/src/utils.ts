@@ -35,8 +35,6 @@ function createChord(root: RootNote, quality: ChordQualityInfo): ChordInfo {
   const chordSymbols = symbols.map((symbol) => `${root}${symbol}`);
   const chordNumbers = getNoteNumbers(root, intervals);
 
-  console.log(chordName, chordNumbers, intervals);
-
   return {
     name: chordName,
     synonym: chordSynonym,

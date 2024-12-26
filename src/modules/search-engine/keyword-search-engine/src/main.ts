@@ -63,7 +63,7 @@ function createKeywordsMap<T>(data: { [id: string]: T }, getKeywords: (element: 
 /** 키워드 자동 완성기를 생성합니다. */
 function createAutoCompleter(keywordsMap: KeywordsMap) {
   const words = new Set<string>();
-  Object.entries(keywordsMap).forEach(([_, keywords]) => {
+  Object.entries(keywordsMap).forEach(([, keywords]) => {
     keywords.forEach((keyword) => {
       words.add(keyword);
       const subKeywords = keyword.trim().split(' ');

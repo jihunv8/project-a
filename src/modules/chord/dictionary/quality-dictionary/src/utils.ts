@@ -4,7 +4,7 @@ import { createKeywordSearchEngine, KeywordSearchEngine } from '@/modules/search
 
 export type ChordQualityDictionary = KeywordSearchEngine<ChordQualityInfo>;
 
-export const dictionary: ChordQualityDictionary = createChordQualityDictionary(chordQualityInfoTable);
+export const chordQualityDictionary: ChordQualityDictionary = createChordQualityDictionary(chordQualityInfoTable);
 
 function createChordQualityDictionary(chordQualityInfoTable: ChordQualityInfoTable): ChordQualityDictionary {
   const searchEngine = createKeywordSearchEngine(chordQualityInfoTable, (chordInfo) => {
