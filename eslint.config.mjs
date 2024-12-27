@@ -14,6 +14,8 @@ const compat = new FlatCompat({
 
 const config = [
   ...compat.extends('next/core-web-vitals', 'next/typescript', 'plugin:storybook/recommended'),
+
+  // src/modules의 각 모듈은 index파일을 통해서만 import 가능하도록 제한
   {
     plugins: {
       import: importPlugin,
@@ -24,9 +26,9 @@ const config = [
         {
           zones: [
             {
-              target: './src/!(modules)/**/*', // 프로젝트 전체에서
-              from: './src/modules/**', // modules 폴더 하위의 모든 파일 및 폴더
-              except: ['**/index.js', '**/index.ts'], // 하위 폴더의 index 파일만 허용
+              target: './src/!(modules)/**/*',
+              from: './src/modules/**',
+              except: ['**/index.js', '**/index.ts'],
             },
           ],
         },

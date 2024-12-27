@@ -17,7 +17,7 @@ export default function Page() {
   const [rootNote, setRootNote] = useState<RootNote>('C');
   const [keyword, setKeyword] = useState('');
   const chords = Chord.dictionary.search(rootNote, keyword);
-  const suggestedKeywords = keyword.length === 0 ? [] : Chord.dictionary.suggestKeywords(keyword);
+  const suggestionList = keyword.length === 0 ? [] : Chord.dictionary.suggestKeywords(keyword);
 
   const list = chords.reduce<ChordInfo[][]>((prev, chord, i) => {
     const rowIndex = MathPlus.calcQuotient(i, 4);
@@ -36,10 +36,6 @@ export default function Page() {
     setRootNote(rootNote);
   };
 
-  const onSelectSuggestedKeyword = (suggestedKeyword: string) => {
-    setKeyword(suggestedKeyword);
-  };
-
   return (
     <section className={namer('wrapper')}>
       <section className={namer('contentsArea')}>
@@ -48,8 +44,7 @@ export default function Page() {
           onTypeKeyword={handleTypeKeyword}
           rootNote={rootNote}
           onSelectRootNote={handleSelectRootNote}
-          suggestedKeywords={suggestedKeywords}
-          onSelectSuggestedKeyword={onSelectSuggestedKeyword}
+          suggestionList={suggestionList}
         />
         <ul className={namer('chordCardList')}>
           {list.map((chords, i) => {
@@ -57,7 +52,11 @@ export default function Page() {
               <li key={i} className={namer('row')}>
                 {chords.map((chord) => {
                   const { symbols, name, noteNumbers } = chord;
-                  return <ChordCard key={name} title={symbols[0]} subtitle={name} chordNumbers={noteNumbers} />;
+                  return (
+                    <div key={name} className={namer('card-wrapper')}>
+                      <ChordCard title={symbols[0]} subtitle={name} chordNumbers={noteNumbers} />
+                    </div>
+                  );
                 })}
               </li>
             );

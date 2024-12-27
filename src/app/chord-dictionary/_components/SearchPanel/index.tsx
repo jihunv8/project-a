@@ -20,8 +20,7 @@ type SearchPanelProps = {
   onSelectRootNote?: (rootNote: RootNote) => void;
   keyword?: string;
   onTypeKeyword?: (keyword: string) => void;
-  suggestedKeywords?: string[];
-  onSelectSuggestedKeyword?: (suggestedKeyword: string) => void;
+  suggestionList?: string[];
 };
 
 export default function SearchPanel({
@@ -30,8 +29,7 @@ export default function SearchPanel({
   onSelectRootNote = () => {},
   keyword = '',
   onTypeKeyword = () => {},
-  suggestedKeywords = [],
-  onSelectSuggestedKeyword = () => {},
+  suggestionList = [],
 }: SearchPanelProps) {
   const [mode, setMode] = useState<SerachMode>(defaultMode);
 
@@ -48,8 +46,7 @@ export default function SearchPanel({
         onSelectRootNote={onSelectRootNote}
         keyword={keyword}
         onTypeKeyword={onTypeKeyword}
-        suggestedKeywords={suggestedKeywords}
-        onSelectSuggestedKeyword={onSelectSuggestedKeyword}
+        suggestionList={suggestionList}
       />
     ),
     piano: <SearchPiano />,

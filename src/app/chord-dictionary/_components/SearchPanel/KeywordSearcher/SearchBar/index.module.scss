@@ -17,7 +17,7 @@
     border-radius: numbers.$radius-common-large;
 
     &.suggested {
-      border-bottom: none;
+      border-bottom-color: transparent;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
@@ -73,7 +73,8 @@
           border-radius: numbers.$radius-common-large;
           @include fonts.primary-14-400;
 
-          &:hover {
+          &:hover,
+          &.selected {
             background-color: colors.$gray-scale-200;
           }
         }
