@@ -10,6 +10,7 @@ import { produce } from 'immer';
 import MathPlus from '@/modules/math-plus';
 import { useState } from 'react';
 import { RootNote } from '@/modules/mdm';
+import Header from '@/app/_components/Header';
 
 const namer = createSimpleClassNamer(style);
 
@@ -38,6 +39,7 @@ export default function Page() {
 
   return (
     <section className={namer('wrapper')}>
+      <Header currentPage="chord" />
       <section className={namer('contentsArea')}>
         <SearchPanel
           keyword={keyword}

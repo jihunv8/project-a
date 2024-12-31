@@ -1,0 +1,20 @@
+@use '../../../../styles/colors';
+
+.wrapper {
+  height: 40px;
+  padding: 0 20px;
+
+  .menu {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 3px transparent;
+    color: colors.$font-primary;
+    text-decoration: none;
+
+    &:hover,
+    &.selected {
+      border-bottom-color: colors.$blue-400;
+    }
+  }
+}

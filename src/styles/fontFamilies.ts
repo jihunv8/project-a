@@ -10,7 +10,7 @@ const notoSansKr = Noto_Sans_KR({
   weight: ['400', '500', '700'],
 });
 
-export const fontFamilys = {
+export const fontFamilies = {
   global: notoSansKr,
   primary: {
     en: notoSans,

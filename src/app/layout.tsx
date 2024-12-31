@@ -1,7 +1,7 @@
 import '../styles/globals.scss';
 
 import type { Metadata } from 'next';
-import { fontFamilys } from '@/styles/fontFamilys';
+import { fontFamilies } from '@/styles/fontFamilies';
 
 export const metadata: Metadata = {
   title: 'Project A',
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={fontFamilys.global.className}>
+    <html lang="ko" className={fontFamilies.global.className}>
       <body>{children}</body>
     </html>
   );

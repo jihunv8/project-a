@@ -3,7 +3,7 @@ import React from 'react';
 
 import '../src/styles/globals.scss';
 
-import { fontFamilys } from '../src/styles/fontFamilys';
+import { fontFamilies } from '../src/styles/fontFamilies';
 
 const preview: Preview = {
   parameters: {
@@ -17,7 +17,7 @@ const preview: Preview = {
 
   decorators: [
     (Story) => (
-      <main className={fontFamilys.global.className}>
+      <main className={fontFamilies.global.className}>
         <Story />
       </main>
     ),

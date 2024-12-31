@@ -1,0 +1,33 @@
+@use '../../../styles/colors';
+@use '../../../styles/shadows';
+
+.wrapper {
+  @include shadows.common-shadow;
+
+  .header-area {
+    margin: 0 auto;
+    max-width: 1260px;
+    padding: 20px 40px;
+    display: flex;
+    gap: 30px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      color: colors.$font-primary;
+      text-decoration: none;
+
+      > h1 {
+        font-size: 2rem;
+        line-height: 1;
+      }
+    }
+
+    .gnb {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Piano } from '@/app/_components/Piano';
 import style from './index.module.scss';
-import { fontFamilys } from '@/styles/fontFamilys';
+import { fontFamilies } from '@/styles/fontFamilies';
 import { PianoKeyData } from '@/app/_components/Piano/src/piano-data';
 
 type ChordCardProps = {
@@ -19,7 +19,7 @@ export default function ChordCard({ title, subtitle, chordNumbers }: ChordCardPr
 
   return (
     <article className={style.wrapper}>
-      <section className={`${style.header} ${fontFamilys.primary.en.className}`}>
+      <section className={`${style.header} ${fontFamilies.primary.en.className}`}>
         <h1 className={style.title}>{title}</h1>
         <h2 className={style.subtitle}>{subtitle}</h2>
       </section>
