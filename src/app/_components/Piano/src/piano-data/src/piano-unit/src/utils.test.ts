@@ -1,11 +1,11 @@
 import { createDefault, setKey, setOctave } from './utils';
 import { PianoUnitData } from './types';
 import PianoKeyDataModule from '../../key';
-import nnm from '@/modules/nnm';
+import Nnm from '@/modules/nnm';
 
 const subjectUnits: PianoUnitData[] = [];
 for (let octave = -3; octave <= 8; octave++) {
-  const minNumber = nnm.getMinInOctave(octave);
+  const minNumber = Nnm.getMinInOctave(octave);
   subjectUnits.push({
     octave,
     keys: {
@@ -28,7 +28,7 @@ for (let octave = -3; octave <= 8; octave++) {
 describe('createDefault', () => {
   test('올바르게 기본 피아노유닛을 생성해야 합니다.', () => {
     for (let octave = -3; octave <= 8; octave++) {
-      const minNumber = nnm.getMinInOctave(octave);
+      const minNumber = Nnm.getMinInOctave(octave);
       const expected = {
         octave,
         keys: {
@@ -56,8 +56,8 @@ describe('setKey', () => {
   test('피아노유닛의 옥타브 범위에 밖의 키를 설정하려 할 때 에러가 발생해야 합니다.', () => {
     subjectUnits.forEach((subjectUnit) => {
       const { octave } = subjectUnit;
-      const minNumber = nnm.getMinInOctave(octave);
-      const maxNumber = nnm.getMaxInOctave(octave);
+      const minNumber = Nnm.getMinInOctave(octave);
+      const maxNumber = Nnm.getMaxInOctave(octave);
 
       for (let number = minNumber - 1; number > minNumber - 24; number--) {
         expect(() => {
@@ -76,14 +76,14 @@ describe('setKey', () => {
   test('키를 올바르게 수정해야 합니다.', () => {
     subjectUnits.forEach((subjectUnit) => {
       const { octave } = subjectUnit;
-      const minNumber = nnm.getMinInOctave(octave);
-      const maxNumber = nnm.getMaxInOctave(octave);
+      const minNumber = Nnm.getMinInOctave(octave);
+      const maxNumber = Nnm.getMaxInOctave(octave);
 
       for (let number = minNumber; number <= maxNumber; number++) {
         const settedUnit = setKey(subjectUnit, { number, state: 'highlight' });
 
-        const index = nnm.wrapToOctaveRange(number);
-        expect(settedUnit.keys[index].number).toBe(nnm.getInOctave(octave, index));
+        const index = Nnm.wrapToOctaveRange(number);
+        expect(settedUnit.keys[index].number).toBe(Nnm.getInOctave(octave, index));
         expect(settedUnit.keys[index].state).toBe('highlight');
       }
     });
@@ -98,8 +98,8 @@ describe('setOctave', () => {
 
         for (let i = 0; i < 12; i++) {
           const octave = settedUnit.octave;
-          const index = nnm.castOctaveRange(i);
-          const expectedNumber = nnm.getInOctave(octave, index);
+          const index = Nnm.castOctaveRange(i);
+          const expectedNumber = Nnm.getInOctave(octave, index);
           expect(settedUnit.keys[index].number).toBe(expectedNumber);
         }
       }

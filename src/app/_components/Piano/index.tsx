@@ -1,4 +1,4 @@
-import nnm from '@/modules/nnm';
+import Nnm from '@/modules/nnm';
 import style from './index.module.scss';
 
 import PianoUnit from './PianoUnit';
@@ -17,7 +17,7 @@ type PianoProps = {
 export function Piano({ keys = [], options: { startOctave, totalOctave, minTotalOctave } = {} }: PianoProps) {
   if (keys.length === 0) {
     const defaultStartOctave = startOctave ?? 4;
-    const defaultStartNumber = nnm.getInOctave(defaultStartOctave, 0);
+    const defaultStartNumber = Nnm.getInOctave(defaultStartOctave, 0);
     keys = [PianoDataModule.key.create(defaultStartNumber)];
   }
 

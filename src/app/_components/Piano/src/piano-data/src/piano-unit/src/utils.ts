@@ -1,5 +1,5 @@
 import { Immutable, produce } from 'immer';
-import nnm from '@/modules/nnm';
+import Nnm from '@/modules/nnm';
 import { PianoUnitData } from './types';
 import PianoKeyDataModule, { PianoKeyData } from '../../key';
 
@@ -20,7 +20,7 @@ export function createDefault(octave: number): PianoUnitData {
 }
 
 export function createDefaultKeys(octave: number): PianoUnitData['keys'] {
-  const minNumber = nnm.getMinInOctave(octave);
+  const minNumber = Nnm.getMinInOctave(octave);
   return {
     0: PianoKeyDataModule.createDefault(minNumber + 0),
     1: PianoKeyDataModule.createDefault(minNumber + 1),
@@ -38,9 +38,9 @@ export function createDefaultKeys(octave: number): PianoUnitData['keys'] {
 }
 
 export function setKey(unit: PianoUnitData, key: PianoKeyData) {
-  nnm.validateNoteNumberForOctave(key.number, unit.octave);
+  Nnm.validateNoteNumberForOctave(key.number, unit.octave);
 
-  const index = nnm.wrapToOctaveRange(key.number);
+  const index = Nnm.wrapToOctaveRange(key.number);
   return produce(unit, (draft) => {
     draft.keys[index] = key;
   });
@@ -51,8 +51,8 @@ export function setOctave(unit: PianoUnitData, octave: number): PianoUnitData {
   const keysInArray = Object.entries(unit.keys).map((entry) => entry[1]);
 
   const adjustedKeys = keysInArray.reduce((keys, key, i) => {
-    const index = nnm.castOctaveRange(i);
-    const adjustedNumber = nnm.getInOctave(octave, index);
+    const index = Nnm.castOctaveRange(i);
+    const adjustedNumber = Nnm.getInOctave(octave, index);
     const adjustedKey = PianoKeyDataModule.setNumber(key, adjustedNumber);
 
     return produce(keys, (draft) => {

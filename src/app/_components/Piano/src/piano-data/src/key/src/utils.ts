@@ -1,4 +1,4 @@
-import nnm, { NoteNumber } from '@/modules/nnm';
+import Nnm, { NoteNumber } from '@/modules/nnm';
 import { PianoKeyData, PianoKeyState } from './types';
 import { Immutable, produce } from 'immer';
 
@@ -13,12 +13,12 @@ export function getTotalOctave(keys: Immutable<PianoKeyData[]>): number {
 
 export function getMaxOctave(keys: Immutable<PianoKeyData[]>): number {
   if (keys.length === 0) throw new Error('빈 배열에선 최대값을 구할 수 없습니다.');
-  return nnm.getOctave(getMaxNoteNumber(keys));
+  return Nnm.getOctave(getMaxNoteNumber(keys));
 }
 
 export function getMinOctave(keys: Immutable<PianoKeyData[]>): number {
   if (keys.length === 0) throw new Error('빈 배열에선 최대값을 구할 수 없습니다.');
-  return nnm.getOctave(getMinNoteNumber(keys));
+  return Nnm.getOctave(getMinNoteNumber(keys));
 }
 
 export function getMaxNoteNumber(keys: Immutable<PianoKeyData[]>): NoteNumber {
@@ -54,7 +54,7 @@ export function create(number: number, { state = 'default' }: { state?: PianoKey
 }
 
 export function getOctave(key: PianoKeyData): number {
-  return nnm.getOctave(key.number);
+  return Nnm.getOctave(key.number);
 }
 
 export function compare(a: PianoKeyData, b: PianoKeyData): number {
