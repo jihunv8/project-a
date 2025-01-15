@@ -17,6 +17,6 @@ export const Primary: Story = {};
 export const WithSuggestedKeywords: Story = {
   args: {
     keyword: 'mi',
-    suggestedKeywords: ['mi', 'min', 'minor', 'minor seventh', 'minor seventh flat five'],
+    suggestionList: ['mi', 'min', 'minor', 'minor seventh', 'minor seventh flat five'],
   },
 };
