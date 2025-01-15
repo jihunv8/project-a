@@ -1,16 +1,8 @@
-import * as MathPlus from './calc';
-export * from './calc';
-export { MathPlus };
+import * as _MathPlus from './external';
+
+/** JS 빌트인 객체 Math에 없는 수학관련 유틸리티를 모아둔 모듈입니다. */
+const MathPlus = _MathPlus;
 export default MathPlus;
 
-/** 나누어 몫과 나머지를 구합니다. 반환값: [ 몫, 나머지 ]*/
-export function divide(dividend: number, divisor: number): [number, number] {
-  if (divisor === 0) {
-    throw new Error('0으로 나눌 수 없습니다.');
-  }
-
-  const quotient = Math.floor(dividend / divisor);
-  const remainder = dividend % divisor;
-
-  return [quotient, remainder];
-}
+export * from './external';
+export { MathPlus };
