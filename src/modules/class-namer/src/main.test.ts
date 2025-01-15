@@ -1,4 +1,4 @@
-import { createClassNamer, createSimpleClassNamer } from './index';
+import { createClassNamer, createSimpleClassNamer } from './main';
 
 describe('createClassNamer', () => {
   const tempStyle = {
