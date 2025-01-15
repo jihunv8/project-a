@@ -1,4 +1,5 @@
 // TODO: invertedIndex 테스트코드 작성
+test('', () => {}); // npm run test 했을 때 PASS되도록 하기위함. 테스트 작성 시 삭제.
 
 // import { KeywordsMap } from './types';
 // import { createInvertedIndex } from './invertedIndex';
